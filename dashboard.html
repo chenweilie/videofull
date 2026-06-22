@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多视频分屏画壁 - 沉浸式多窗看片</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="dashboard-app">
+    <!-- Top Control Bar -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32">
+          <defs>
+            <linearGradient id="dashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b82f6" />
+              <stop offset="100%" style="stop-color:#00f2fe" />
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#dashGrad)" />
+          <!-- Two play triangles overlapping to represent multi window -->
+          <polygon points="40,42 72,58 40,74" fill="#ffffff" opacity="0.9" />
+          <polygon points="64,54 96,70 64,86" fill="#ffffff" opacity="0.6" />
+        </svg>
+        <div class="header-titles">
+          <h1>多视频分屏画壁</h1>
+          <p>支持自适应分屏、可拖动边界、鼠标对焦自动切音</p>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <!-- Layout presets -->
+        <div class="presets-group">
+          <span>快捷布局:</span>
+          <button class="preset-btn" data-layout="1x2">1 ✖ 2</button>
+          <button class="preset-btn" data-layout="2x1">2 ✖ 1</button>
+          <button class="preset-btn" data-layout="2x2">2 ✖ 2</button>
+        </div>
+
+        <div class="toggle-group">
+          <label class="switch-label">
+            <input type="checkbox" id="hoverFocusToggle" checked>
+            <span class="switch-custom"></span>
+            鼠标对焦自动切音
+          </label>
+        </div>
+
+        <div class="actions-group">
+          <button id="addCellBtn" class="btn primary-btn">+ 新增视窗</button>
+          <button id="clearAllBtn" class="btn danger-btn">清空全部</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="dashboard-workspace" id="workspace">
+      <!-- Grid container dynamically managed by dashboard.js -->
+      <div class="grid-container" id="gridContainer">
+        <!-- Cells will be inserted here dynamically -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Instruction Overlay for new users -->
+  <div class="instructions-modal" id="instructionsModal">
+    <div class="modal-content">
+      <h2>💡 多视频分屏画壁 使用技巧</h2>
+      <ul>
+        <li><strong>添加视频</strong>：点击“+ 新增视窗”，复制粘贴 YouTube、Bilibili、独播库(IYF) 的视频播放页 URL 并回车即可载入。</li>
+        <li><strong>无黑边适配</strong>：每个视窗都完美嵌入了全屏模式，您可以随意切换视窗比例。</li>
+        <li><strong>拖拽调整边界</strong>：鼠标悬停在视窗之间的分割线上，按住左键拖动可自由改变分屏比例。</li>
+        <li><strong>鼠标对焦自动切音</strong>：开启此项后，鼠标移到哪个视窗上，哪个视窗就会自动播放声音，其它视窗静音，有效避免多轨声音嘈杂。</li>
+      </ul>
+      <button id="closeModalBtn" class="btn primary-btn">开始使用</button>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

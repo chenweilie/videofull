@@ -72,6 +72,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     chrome.tabs.create({ url: 'chrome://extensions/shortcuts' });
   });
 
+  // Open Dashboard Page
+  const openDashboardBtn = document.getElementById('openDashboardBtn');
+  openDashboardBtn.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'dashboard.html' });
+  });
+
   // 4. Check status of current active tab
   const checkTabStatus = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

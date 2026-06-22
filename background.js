@@ -5,13 +5,30 @@ chrome.commands.onCommand.addListener((command) => {
     }
 });
 
-// Listen for messages from content scripts or popup
+// Listen for messages from content scripts, dashboard, or popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === 'stateChanged') {
         const tabId = sender.tab?.id;
         if (tabId) {
             updateBadgeState(tabId, message.isFullscreen);
         }
+        sendResponse({ success: true });
+    } else if (message.action === 'hover-focus') {
+        // Query the active tab and broadcast the focus message to all of its frames
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const activeTab = tabs[0];
+            if (activeTab?.id) {
+                chrome.tabs.sendMessage(activeTab.id, {
+                    action: 'hover-focus',
+                    targetUrl: message.targetUrl
+                }, (response) => {
+                    // Suppress connection errors if frames aren't fully loaded
+                    if (chrome.runtime.lastError) {
+                        // Safe to ignore
+                    }
+                });
+            }
+        });
         sendResponse({ success: true });
     }
     return true;

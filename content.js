@@ -455,6 +455,22 @@ function scanAndSetupVideos() {
 // Run initialization scanner
 scanAndSetupVideos();
 
+// Auto activate fullscreen if loaded inside dashboard frame with #web-fullscreen-auto
+if (window.self !== window.top && window.location.hash.includes('web-fullscreen-auto')) {
+    let checkCount = 0;
+    const autoFullscreenTimer = setInterval(() => {
+        const video = findPrimaryVideo();
+        if (video) {
+            clearInterval(autoFullscreenTimer);
+            toggleWebFullscreen(video);
+        }
+        checkCount++;
+        if (checkCount > 40) { // Timeout after 20 seconds
+            clearInterval(autoFullscreenTimer);
+        }
+    }, 500);
+}
+
 // Intercept events to scan dynamic loaded videos (SPA support)
 let throttleTimeout = null;
 const throttledScan = () => {
@@ -494,6 +510,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             isFullscreen: !!activeFullscreenVideo,
             hasVideo: document.querySelectorAll('video').length > 0
         });
+    } else if (message.action === 'hover-focus') {
+        const video = findPrimaryVideo();
+        if (video) {
+            const currentUrl = window.location.href;
+            const targetUrl = message.targetUrl || '';
+            
+            // Loose match because URLs might have hash changes or redirects
+            const isTarget = currentUrl.includes(targetUrl) || targetUrl.includes(currentUrl);
+            
+            if (isTarget) {
+                video.muted = false;
+                // Attempt autoplay if paused
+                if (video.paused) {
+                    video.play().catch(e => console.log('Autoplay check', e));
+                }
+            } else {
+                video.muted = true;
+            }
+        }
+        sendResponse({ success: true });
     } else if (message.action === 'exit-fullscreen') {
         if (activeFullscreenVideo) {
             exitWebFullscreen();
