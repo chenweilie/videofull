@@ -1,0 +1,202 @@
+/* Disable scrolling on html/body when web fullscreen is active */
+html.__web_fullscreen_active,
+body.__web_fullscreen_active {
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    /* Prevent touch gestures or scroll bouncing */
+    overscroll-behavior: none !important;
+}
+
+/* Style for target element (video or player container) */
+.__web_fullscreen_target {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 2147483645 !important; /* Slightly lower than button/toast to keep them on top */
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000000 !important;
+    
+    /* Reset containment, transform, clips that might affect size */
+    transform: none !important;
+    transition: none !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Force video elements inside the target player container to stretch and fit */
+.__web_fullscreen_target video {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    position: absolute !important;
+    background: #000000 !important;
+}
+
+/* Video Scale Modes */
+.__web_fullscreen_target.__scale_contain video {
+    object-fit: contain !important;
+}
+
+.__web_fullscreen_target.__scale_cover video {
+    object-fit: cover !important;
+}
+
+.__web_fullscreen_target.__scale_fill video {
+    object-fit: fill !important;
+}
+
+/* Ensure all parent elements are visible and don't clip the fixed child */
+.__web_fullscreen_parent {
+    overflow: visible !important;
+    transform: none !important;
+    filter: none !important;
+    perspective: none !important;
+    contain: none !important;
+    backdrop-filter: none !important;
+    clip: auto !important;
+    clip-path: none !important;
+    mask: none !important;
+    z-index: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Hide other elements (siblings of ancestors) to focus only on video */
+.__web_fullscreen_hidden_sibling {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Glassmorphism Floating Web-Fullscreen Toggle Button */
+.__web_fullscreen_btn {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2147483647 !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    opacity: 0;
+    pointer-events: auto !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Hover effects */
+.__web_fullscreen_btn:hover {
+    background: rgba(59, 130, 246, 0.85) !important; /* Sleek blue */
+    border-color: rgba(147, 197, 253, 0.5) !important;
+    transform: scale(1.12) !important;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.55) !important;
+}
+
+.__web_fullscreen_btn:active {
+    transform: scale(0.95) !important;
+}
+
+/* Make button visible on hover */
+.__web_fullscreen_btn.visible {
+    opacity: 1 !important;
+}
+
+/* SVG icons styling inside the button */
+.__web_fullscreen_btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: none !important;
+    stroke: #ffffff !important;
+    stroke-width: 2.2 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    transition: transform 0.25s ease !important;
+}
+
+.__web_fullscreen_btn:hover svg {
+    transform: scale(1.05) !important;
+}
+
+/* Button style adjustments while in fullscreen mode */
+.__web_fullscreen_btn.in-fullscreen {
+    position: fixed !important; /* Lock to viewport corner */
+    top: 16px !important;
+    right: 16px !important;
+    background: rgba(30, 41, 59, 0.7) !important;
+}
+
+.__web_fullscreen_btn.in-fullscreen:hover {
+    background: rgba(239, 68, 68, 0.85) !important; /* Red hover for close/exit */
+    border-color: rgba(252, 165, 165, 0.5) !important;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.55) !important;
+}
+
+/* Premium Toast Notification */
+.__web_fullscreen_toast {
+    position: fixed !important;
+    bottom: 32px !important;
+    left: 50% !important;
+    transform: translate(-50%, 40px) !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border-radius: 30px !important;
+    font-size: 14px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    z-index: 2147483647 !important;
+    pointer-events: none !important;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Subtle bounce */
+    opacity: 0 !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.__web_fullscreen_toast.visible {
+    opacity: 1 !important;
+    transform: translate(-50%, 0) !important;
+}
+
+/* SPECIFIC SITE TWEAKS */
+
+/* YouTube tweaks */
+.__web_fullscreen_target.html5-video-player {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+/* Bilibili tweaks */
+.__web_fullscreen_target .bilibili-player-video {
+    width: 100% !important;
+    height: 100% !important;
+}
+/* Force bilibili control bar and danmaku layer to stack correctly inside fullscreen */
+.__web_fullscreen_target .bilibili-player-video-control,
+.__web_fullscreen_target .bilibili-player-video-danmaku {
+    z-index: 200000 !important;
+}

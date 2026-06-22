@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Web Video Full Window (网页视频网页全屏)",
+  "version": "1.0.0",
+  "description": "完美将网页播放的视频扩展到整个Chrome窗口（网页全屏），隐藏其它元素，提供沉浸式看视频体验。支持快捷键、智能播放器检测和悬浮按钮。",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon.svg"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "commands": {
+    "toggle-fullscreen": {
+      "suggested_key": {
+        "default": "Alt+V",
+        "mac": "Alt+V"
+      },
+      "description": "切换网页视频全屏"
+    }
+  },
+  "icons": {
+    "16": "icons/icon.svg",
+    "32": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  }
+}

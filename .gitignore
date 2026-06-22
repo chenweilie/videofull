@@ -1,0 +1,6 @@
+# Chrome Extension distribution package
+*.zip
+
+# OS metadata
+.DS_Store
+Thumbs.db

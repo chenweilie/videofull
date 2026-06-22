@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer rounded square container (simulating Chrome window) -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#bgGrad)" shadow="0 4px 12px rgba(0,0,0,0.15)" />
+  
+  <!-- Web browser container header bar -->
+  <rect x="18" y="24" width="92" height="14" rx="3" fill="#1e293b" />
+  <circle cx="26" cy="31" r="3" fill="#ef4444" />
+  <circle cx="34" cy="31" r="3" fill="#eab308" />
+  <circle cx="42" cy="31" r="3" fill="#22c55e" />
+  
+  <!-- Browser viewport -->
+  <rect x="18" y="38" width="92" height="66" rx="3" fill="#0f172a" />
+  
+  <!-- Video screen inside viewport - stretched (represented by outline) -->
+  <rect x="24" y="44" width="80" height="54" rx="2" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4 2" opacity="0.6" />
+
+  <!-- Fully expanded screen indicators (arrows pointing outwards to match web full window) -->
+  <g stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Play symbol in center -->
+    <polygon points="56,60 78,71 56,82" fill="#ffffff" stroke="none" />
+    
+    <!-- Top-Left Arrow -->
+    <path d="M34,56 L34,44 L46,44" />
+    <path d="M34,44 L50,60" stroke-width="4" opacity="0.8" />
+    
+    <!-- Top-Right Arrow -->
+    <path d="M94,56 L94,44 L82,44" />
+    <path d="M94,44 L78,60" stroke-width="4" opacity="0.8" />
+    
+    <!-- Bottom-Left Arrow -->
+    <path d="M34,86 L34,98 L46,98" />
+    <path d="M34,98 L50,82" stroke-width="4" opacity="0.8" />
+    
+    <!-- Bottom-Right Arrow -->
+    <path d="M94,86 L94,98 L82,98" />
+    <path d="M94,98 L78,82" stroke-width="4" opacity="0.8" />
+  </g>
+</svg>

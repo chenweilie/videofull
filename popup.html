@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网页视频网页全屏</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="28" height="28">
+          <defs>
+            <linearGradient id="popGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#popGrad)" />
+          <polygon points="52,48 84,64 52,80" fill="#ffffff" />
+        </svg>
+        <h1>网页视频全屏</h1>
+      </div>
+      <span class="version-badge">v1.0.0</span>
+    </header>
+
+    <!-- Main Action Button -->
+    <main class="main-content">
+      <div class="status-card" id="statusCard">
+        <div class="status-indicator">
+          <span class="status-dot" id="statusDot"></span>
+          <span class="status-text" id="statusText">正在检测页面视频...</span>
+        </div>
+        <button id="toggleBtn" class="action-btn primary" disabled>
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path class="icon-expand" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              <path class="icon-shrink" d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7" style="display:none;" />
+            </svg>
+          </span>
+          <span class="btn-text" id="toggleBtnText">网页全屏</span>
+        </button>
+      </div>
+
+      <!-- Settings Section -->
+      <section class="settings-section">
+        <h2>全局配置</h2>
+        
+        <!-- Target Mode (Segmented Control) -->
+        <div class="setting-item column">
+          <div class="setting-label-group">
+            <label>全屏目标模式</label>
+            <span class="tooltip-icon" title="播放器模式保留播放器控件和弹幕；视频模式仅放大纯视频画面。">?</span>
+          </div>
+          <div class="segmented-control">
+            <input type="radio" id="modePlayer" name="targetMode" value="player" checked>
+            <label for="modePlayer" class="segment-label">智能播放器 (推荐)</label>
+            
+            <input type="radio" id="modeVideo" name="targetMode" value="video">
+            <label for="modeVideo" class="segment-label">纯视频画面</label>
+          </div>
+        </div>
+
+        <!-- Video Scale Mode (Segmented Control) -->
+        <div class="setting-item column">
+          <div class="setting-label-group">
+            <label>视频画面比例</label>
+            <span class="tooltip-icon" title="原始比例：保留黑边以保证画面完整；裁剪铺满：放大并裁剪画面，无黑边；拉伸铺满：直接拉伸至全宽，无黑边但会变形。">?</span>
+          </div>
+          <div class="segmented-control">
+            <input type="radio" id="scaleContain" name="videoScaleMode" value="contain" checked>
+            <label for="scaleContain" class="segment-label">原始比例</label>
+            
+            <input type="radio" id="scaleCover" name="videoScaleMode" value="cover">
+            <label for="scaleCover" class="segment-label">裁剪铺满</label>
+            
+            <input type="radio" id="scaleFill" name="videoScaleMode" value="fill">
+            <label for="scaleFill" class="segment-label">拉伸铺满</label>
+          </div>
+        </div>
+
+        <!-- Switch Controls -->
+        <div class="setting-item row">
+          <div class="setting-info">
+            <span class="setting-title">净化其它元素</span>
+            <span class="setting-desc">隐藏视频外所有其它节点，防止画面穿透。</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="hideSiblings" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item row">
+          <div class="setting-info">
+            <span class="setting-title">显示悬浮控制按钮</span>
+            <span class="setting-desc">鼠标移入视频区域时在右上角显示快捷图标。</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="showButton" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Shortcut Info -->
+      <footer class="app-footer">
+        <div class="shortcut-info">
+          <span>快捷键: <kbd>Alt</kbd> + <kbd>V</kbd></span>
+          <a href="#" id="changeShortcutLink" class="link-btn">修改快捷键</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
